@@ -1,0 +1,21 @@
+name: Setup latest .NET SDKs
+author: Els_kom
+description: Github Action to install the daily builds of the .NET SDK.
+
+inputs:
+    version-major:
+        description: Major version of the .NET SDK to install.
+        required: false
+        default: '6'
+    version-minor:
+        description: Minor version of the .NET SDK to install.
+        required: true
+        default: '0'
+
+runs:
+    using: node12
+    main: index.js
+
+branding:
+    icon: download-cloud
+    color: blue
