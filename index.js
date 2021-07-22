@@ -21,6 +21,15 @@ class Action
         return spawnSync(TOOL, ARGS, options)
     }
 
+    _executeInProcess(cmd)
+    {
+        var proc = this._executeCommand(cmd, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+        if (proc.status > 0)
+        {
+            this._printErrorAndExit(`${/error.*/.exec(proc.stdout)[0]}`)
+        }
+    }
+
     downloadInstallScript(url, dest)
     {
         return new Promise((resolve, reject) => {
@@ -67,7 +76,7 @@ class Action
             console.log('Download Complete.')
             
             // Windows.
-            this._executeCommand(`./dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor} -Quality daily`)
+            this._executeInProcess(`./dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor} -Quality daily`)
         }
         else
         {
@@ -76,7 +85,7 @@ class Action
             console.log('Download Complete.')
 
             // Linux and MacOS.
-            this._executeCommand(`./dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor} --quality daily`)
+            this._executeInProcess(`./dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor} --quality daily`)
         }
     }
 }
