@@ -3,13 +3,13 @@ author: Els_kom
 description: Github Action to install the daily builds of the .NET SDK.
 
 inputs:
-    version-major:
+    VERSION_MAJOR:
         description: Major version of the .NET SDK to install.
         required: false
         default: '6'
-    version-minor:
+    VERSION_MINOR:
         description: Minor version of the .NET SDK to install.
-        required: true
+        required: false
         default: '0'
 
 runs:

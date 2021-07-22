@@ -1,12 +1,13 @@
 const https = require("https"),
-    fs = require("fs")
+    fs = require("fs"),
+    spawnSync = require("child_process").spawnSync
 
 class Action
 {
     constructor()
     {
-        this.versionMajor = process.env.version-major
-        this.versionMinor = process.env.version-minor
+        this.versionMajor = process.env.INPUT_VERSION_MAJOR
+        this.versionMinor = process.env.INPUT_VERSION_MINOR
     }
 
     _printErrorAndExit(msg)
@@ -32,7 +33,7 @@ class Action
 
     downloadInstallScript(url, dest)
     {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const file = fs.createWriteStream(dest, { flags: "wx" })
             const request = https.get(url, response => {
                 if (response.statusCode === 200) {
