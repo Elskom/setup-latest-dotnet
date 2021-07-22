@@ -22,15 +22,6 @@ class Action
         return spawnSync(TOOL, ARGS, options)
     }
 
-    _executeInProcess(cmd)
-    {
-        var proc = this._executeCommand(cmd, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
-        if (proc.status > 0)
-        {
-            this._printErrorAndExit(`${/error.*/.exec(proc.stdout)[0]}`)
-        }
-    }
-
     downloadInstallScript(url, dest)
     {
         return new Promise((resolve) => {
@@ -69,24 +60,21 @@ class Action
 
     run()
     {
-        console.log('Downloading .NET Install script.')
         if (process.platform === 'win32')
         {
+            console.log('Downloading .NET Install script.')
+
             // Download install script first for Windows.
-            this.downloadInstallScript('https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.ps1', './dotnet-install.ps1')
+            this.downloadInstallScript('https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.ps1', `${__dirname}/dotnet-install.ps1`)
             console.log('Download Complete.')
-            
+
             // Windows.
-            this._executeInProcess(`./dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor} -Quality daily`)
+            this._executeCommand(`${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
         }
         else
         {
-            // Download install script first for Linux and MacOS.
-            this.downloadInstallScript('https://raw.githubusercontent.com/dotnet/install-scripts/main/src/dotnet-install.sh', './dotnet-install.sh')
-            console.log('Download Complete.')
-
             // Linux and MacOS.
-            this._executeInProcess(`./dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor} --quality daily`)
+            this._executeCommand(`${__dirname}/dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor} --quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
         }
     }
 }
