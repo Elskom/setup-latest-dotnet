@@ -10,6 +10,7 @@ class Action
     {
         this.versionMajor = process.env.INPUT_VERSION_MAJOR
         this.versionMinor = process.env.INPUT_VERSION_MINOR
+        this.versionBand = process.env.INPUT_VERSION_BAND
     }
 
     _printErrorAndExit(msg)
@@ -71,7 +72,7 @@ class Action
             console.log('Download Complete.')
 
             // Windows.
-            this._executeCommand(`${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
                 // This is the default set in install-dotnet.ps1
@@ -82,7 +83,7 @@ class Action
         else
         {
             // Linux and MacOS.
-            this._executeCommand(`${__dirname}/dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor} --quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`${__dirname}/dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} --quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
                 // This is the default set in install-dotnet.sh
