@@ -6,7 +6,7 @@ inputs:
     VERSION_MAJOR:
         description: Major version of the .NET SDK to install.
         required: false
-        default: '6'
+        default: '7'
     VERSION_MINOR:
         description: Minor version of the .NET SDK to install.
         required: false
