@@ -6,7 +6,8 @@ A github action to install the latest daily build of the .NET SDK.
 - uses: Elskom/setup-latest-dotnet@main
   with:
     # major version of the .NET SDK to look for the newest version on in the feeds.
-    VERSION_MAJOR: '6'
+    VERSION_MAJOR: '7'
     # minor version of the .NET SDK to look for the newest version on in the feeds.
     VERSION_MINOR: '0'
+    VERSION_BAND: '1xx'
 ```
