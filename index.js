@@ -30,7 +30,7 @@ class Action
         if (process.platform === 'win32')
         {
             // Windows.
-            this._executeCommand(`${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
                 // This is the default set in install-dotnet.ps1
