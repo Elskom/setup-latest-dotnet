@@ -15,6 +15,11 @@ inputs:
         description: Band version of the .NET SDK to install.
         required: false
         default: '1xx'
+    RUNTIME_VERSIONS:
+        description: The list of versions of the runtime to install.
+        required: false
+        # 7.0.0-rc2 currently lacks 6.0.10 because it's in preview.
+        default: '6.0.x'
 
 runs:
     using: node12
