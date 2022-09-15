@@ -35,10 +35,20 @@ class Action
             // Install the runtimes from the list of runtimes.
             for (let runtimeVersion of this.runtimeVersions)
             {
-                // install base runtime.
-                this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Version ${runtimeVersion} -Runtime dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
-                // install aspnetcore runtime.
-                this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Version ${runtimeVersion} -Runtime aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+                if (runtimeVersion === "6.0.x")
+                {
+                    // install base runtime.
+                    this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Channel 6.0 -Quality daily -Runtime dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+                    // install aspnetcore runtime.
+                    this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Channel 6.0 -Quality daily -Runtime aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+                }
+                else
+                {
+                    // install base runtime.
+                    this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Version ${runtimeVersion} -Runtime dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+                    // install aspnetcore runtime.
+                    this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Version ${runtimeVersion} -Runtime aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+                }
             }
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
