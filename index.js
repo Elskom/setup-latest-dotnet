@@ -11,6 +11,7 @@ class Action
         this.versionMajor = process.env.INPUT_VERSION_MAJOR
         this.versionMinor = process.env.INPUT_VERSION_MINOR
         this.versionBand = process.env.INPUT_VERSION_BAND
+        this.runtimeVersions = process.env.RUNTIME_VERSIONS
     }
 
     _printErrorAndExit(msg)
@@ -31,6 +32,11 @@ class Action
         {
             // Windows.
             this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} -Quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            // Install the runtimes from the list of runtimes.
+            for (let runtimeVersion of this.runtimeVersions)
+            {
+                this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Version ${runtimeVersion} -Runtime dotnet -Runtime aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            }
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
                 // This is the default set in install-dotnet.ps1
@@ -42,6 +48,11 @@ class Action
         {
             // Linux and MacOS.
             this._executeCommand(`${__dirname}/dotnet-install.sh --channel ${this.versionMajor}.${this.versionMinor}.${this.versionBand} --quality daily`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            // Install the runtimes from the list of runtimes.
+            for (let runtimeVersion of this.runtimeVersions)
+            {
+                this._executeCommand(`${__dirname}/dotnet-install.sh --version ${runtimeVersion} --runtime dotnet --runtime aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            }
             if (!process.env['DOTNET_INSTALL_DIR'])
             {
                 // This is the default set in install-dotnet.sh
