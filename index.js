@@ -11,7 +11,7 @@ class Action
         this.versionMajor = process.env.INPUT_VERSION_MAJOR
         this.versionMinor = process.env.INPUT_VERSION_MINOR
         this.versionBand = process.env.INPUT_VERSION_BAND
-        this.runtimeVersions = process.env.RUNTIME_VERSIONS
+        this.runtimeVersions = process.env.RUNTIME_VERSIONS.split(';')
     }
 
     _printErrorAndExit(msg)
