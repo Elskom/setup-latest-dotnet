@@ -16,7 +16,7 @@ inputs:
         required: false
         default: '1xx'
     RUNTIME_VERSIONS:
-        description: 
+        description: The list of versions of the runtime to install.
         required: false
         # 7.0.0-rc2 currently lacks 6.0.10 because it's in preview.
         # Versions under 6.0.x are EOL but some projects may need them.
