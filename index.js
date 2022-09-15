@@ -35,7 +35,7 @@ class Action
             // Install the runtimes from the list of runtimes.
             for (let runtimeVersion of this.runtimeVersions)
             {
-                if (runtimeVersion === "6.0.x")
+                if (runtimeVersion == "6.0.x")
                 {
                     // install base runtime.
                     this._executeCommand(`pwsh ${__dirname}/dotnet-install.ps1 -Channel 6.0 -Quality daily -Runtime dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
