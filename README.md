@@ -14,5 +14,5 @@ A github action to install the latest daily build of the .NET SDK.
     VERSION_BAND: '1xx'
     # The list of versions of the runtime to install.
     # The value below is the default list.
-    RUNTIME_VERSIONS: '1.0.16;1.1.13;2.0.9;2.1.30;2.2.8;3.0.3;3.1.29;5.0.17;6.0.10'
+    RUNTIME_VERSIONS: '6.0.x'
 ```
