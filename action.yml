@@ -15,6 +15,10 @@ inputs:
         description: Band version of the .NET SDK to install.
         required: false
         default: '1xx'
+    SDK_VERSION:
+        description: The version to use to override the input major, minor, and feature band of the .NET SDK to install.
+        required: false
+        default: ''
     RUNTIME_VERSIONS:
         description: The list of versions of the runtime to install.
         required: false
