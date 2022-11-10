@@ -26,7 +26,7 @@ inputs:
         default: '6.0.x'
 
 runs:
-    using: node12
+    using: node16
     main: index.js
 
 branding:
