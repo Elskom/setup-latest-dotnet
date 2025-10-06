@@ -63,9 +63,9 @@ class Action
         for (let runtimeVersion of this.runtimeVersions)
         {
             // install base runtime.
-            this._executeCommand(`${command[0]} ${runtimeVersion === '6.0.x' ? `${command[1]} 6.0 ${command[2]} daily`: `${command[3]} ${runtimeVersion}`} ${command[4]} dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`${command[0]} ${command[3]} ${runtimeVersion.slice(0, runtimeVersion.length - 2)} ${command[4]} dotnet`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
             // install aspnetcore runtime.
-            this._executeCommand(`${command[0]} ${runtimeVersion === '6.0.x' ? `${command[1]} 6.0 ${command[2]} daily`: `${command[3]} ${runtimeVersion}`} ${command[4]} aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`${command[0]} ${command[3]} ${runtimeVersion.slice(0, runtimeVersion.length - 2)} ${command[4]} aspnetcore`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
         }
 
         this._addToPath()
