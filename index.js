@@ -50,6 +50,19 @@ class Action
         }
     }
 
+    _getDotnetInstallScript()
+    {
+        if (process.platform !== 'win32')
+        {
+            this._executeCommand(`curl -sSL https://dot.net/v1/dotnet-install.sh -o ${__dirname}/dotnet-install.sh`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`chmod +x ${__dirname}/dotnet-install.sh`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+        }
+        else if (process.platform === 'win32')
+        {
+            this._executeCommand(`Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile '${__dirname}/dotnet-install.ps1';`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+        }
+    }
+
     _DotnetInstallCommand()
     {
         return process.platform === 'win32' ? [`pwsh ${__dirname}/dotnet-install.ps1`, '-Channel', '-Quality', '-Version', '-Runtime'] : [`${__dirname}/dotnet-install.sh`, '--channel', '--quality', '--version', '--runtime']
@@ -57,6 +70,7 @@ class Action
 
     run()
     {
+        this._getDotnetInstallScript()
         var command = this._DotnetInstallCommand()
         this._executeCommand(`${command[0]} ${this.sdkVersion === '' ? `${command[1]} ${this.versionMajor}.${this.versionMinor}.${this.versionBand} ${command[2]} daily` : `${command[3]} ${this.sdkVersion}`}`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
         // Install the runtimes from the list of runtimes.
