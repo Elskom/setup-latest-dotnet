@@ -59,7 +59,7 @@ class Action
         }
         else if (process.platform === 'win32')
         {
-            this._executeCommand(`Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile '${__dirname}/dotnet-install.ps1';`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
+            this._executeCommand(`Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile '${__dirname}\\dotnet-install.ps1';`, { encoding: "utf-8", stdio: [process.stdin, process.stdout, process.stderr] })
         }
     }
 
